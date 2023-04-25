@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head') %>
+  </head>
+  <body>
+    <!-- navigation -->
+    <%- include('../partials/nav') %>
+
+    <div class="container mt-3">
+      <form
+        method="post"
+        enctype="multipart/form-data"
+        action="/admin/courses/<%= course.id %>?_csrf=<%= csrfToken %>"
+      >
+        <div class="row my-5 gx-5">
+          <div class="col-md-10">
+            <input type="hidden" name="courseid" value="<%= course.id %>" />
+            <input type="hidden" name="image" value="<%= course.image %>" />
+            <div class="row mb-3">
+              <label for="title" class="col-sm-1 col-form-label">Title</label>
+              <div class="col-sm-11">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="title"
+                  name="title"
+                  value="<%= course.title %>"
+                />
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="subtitle" class="col-sm-1 col-form-label"
+                >Subtitle</label
+              >
+              <div class="col-sm-11">
+                <textarea name="subtitle" class="form-control" rows="5">
+ <%= course.subtitle %>
+              </textarea
+                >
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label for="url" class="col-sm-1 col-form-label">Url</label>
+              <div class="col-sm-11">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="url"
+                  name="url"
+                  value="<%= course.url %>"
+                />
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label for="description" class="col-sm-1 col-form-label"
+                >Description</label
+              >
+              <div class="col-sm-11">
+                <textarea
+                  id="editor"
+                  name="description"
+                  class="form-control"
+                  rows="8"
+                >
+<%= course.description %></textarea
+                >
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="image" class="col-sm-1 col-form-label">Image</label>
+              <div class="col-sm-11">
+                <img
+                  src="/static/images/<%= course.image %>"
+                  alt=""
+                  width="120"
+                />
+                <input
+                  type="file"
+                  class="form-control"
+                  id="image"
+                  name="image"
+                />
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-sm-11 offset-sm-1">
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="row">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="homepage"
+                name="homepage" <%= course.homepage ? 'checked' : ''%> />
+                <label class="form-check-label" for="homepage">
+                  Homepage
+                </label>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="confirm"
+                name="confirm" <%= course.confirm ? 'checked' : ''%> />
+                <label class="form-check-label" for="onay"> Confirm </label>
+              </div>
+            </div>
+
+            <div class="row border-top pt-3">
+              <% categories.forEach(category => { %>
+              <div class="form-check">
+                <input class="form-check-input " type="checkbox"
+                id="category_<%= category.id %>" name="categories[]" value="<%=
+                category.id %>" <%= course.categories.some(cat => cat.id ==
+                category.id) ? 'checked' : ''%> />
+                <label
+                  class="form-check-label"
+                  for="category_<%=
+              category.id %>"
+                >
+                  <%= category.name %>
+                </label>
+              </div>
+              <% }) %>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
+
+    <script>
+      ClassicEditor.create(document.querySelector('#editor')).catch((error) => {
+        console.error(error);
+      });
+    </script>
+  </body>
+</html>

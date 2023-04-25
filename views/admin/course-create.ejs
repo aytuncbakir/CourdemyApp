@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head') %>
+  </head>
+  <body>
+    <!-- navigation -->
+    <%- include('../partials/nav') %>
+
+    <div class="container mt-3">
+      <div class="row">
+        <div class="col-md-12 mt-3">
+          <% if (typeof message != "undefined") { %>
+          <div class="alert alert-<%= message.class %>">
+            <%= message.text %>
+          </div>
+          <% } %>
+
+          <form
+            method="post"
+            enctype="multipart/form-data"
+            action="/admin/course/create?_csrf=<%= csrfToken %>"
+          >
+            <div class="row mb-3">
+              <label for="title" class="col-sm-2 col-form-label">Title</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" id="title"
+                name="title" value="<%= (typeof values!== 'undefined') ?
+                values.title : "" %>" />
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label for="subtitle" class="col-sm-2 col-form-label"
+                >Subtitle</label
+              >
+              <div class="col-sm-8">
+                <textarea name="subtitle" class="form-control" rows="5">
+<%= (typeof values!== 'undefined') ? values.subtitle : "" %></textarea
+                >
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="description" class="col-sm-2 col-form-label"
+                >Description</label
+              >
+              <div class="col-sm-8">
+                <textarea
+                  id="editor"
+                  name="description"
+                  class="form-control"
+                  rows="10"
+                >
+                <%= (typeof values!== 'undefined') ? values.description : "" %>
+              </textarea
+                >
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="image" class="col-sm-2 col-form-label">Image</label>
+              <div class="col-sm-8">
+                <input
+                  type="file"
+                  class="form-control"
+                  id="image"
+                  name="image"
+                />
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-sm-8 offset-sm-2">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="homepage"
+                    name="homepage"
+                  />
+                  <label class="form-check-label" for="homepage">
+                    Homepage
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-sm-8 offset-sm-2">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="confirm"
+                    name="confirm"
+                  />
+                  <label class="form-check-label" for="confirm"> Confirm </label>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-sm-8 offset-sm-2">
+                <button type="submit" class="btn btn-dark">Save</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
+
+    <script>
+      ClassicEditor.create(document.querySelector('#editor')).catch((error) => {
+        console.error(error);
+      });
+    </script>
+  </body>
+</html>

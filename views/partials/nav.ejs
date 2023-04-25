@@ -1,0 +1,66 @@
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+  <div class="container">
+    <a href="/" class="navbar-brand">Courdemy</a>
+    <ul class="navbar-nav me-auto">
+      <li class="nav-item">
+        <a href="/courses" class="nav-link">Course List</a>
+      </li>
+
+      <% if (isAdmin || isTeacher) { %>
+
+      <li class="nav-item">
+        <a href="/admin/courses" class="nav-link">Admin Courses </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="/admin/course/create" class="nav-link">Add Course </a>
+      </li>
+
+      <% } %> <% if (isAdmin) { %>
+      <li class="nav-item">
+        <a href="/admin/categories" class="nav-link">Admin Categories </a>
+      </li>
+      <li class="nav-item">
+        <a href="/admin/category/create" class="nav-link">Add Category </a>
+      </li>
+      <li class="nav-item">
+        <a href="/admin/roles" class="nav-link">Roles</a>
+      </li>
+      <li class="nav-item">
+        <a href="/admin/users" class="nav-link">Users</a>
+      </li>
+      <% } %>
+
+      <% if (isStudent) { %>
+        <li class="nav-item">
+          <a href="/student/courses" class="nav-link">My Learning </a>
+        </li>
+      <% } %>
+
+    </ul>
+
+    <ul class="navbar-nav ms-auto">
+      <% if (isAuth) { %>
+      <li class="nav-item">
+        <a href="/account/index" class="nav-link">
+          <div>
+            <ion-icon name="person-outline"></ion-icon>
+            <%= fullname %>
+          </div>
+         
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/account/logout" class="nav-link">Logout</a>
+      </li>
+      <% } else { %>
+      <li class="nav-item">
+        <a href="/account/login" class="nav-link">Login</a>
+      </li>
+      <li class="nav-item">
+        <a href="/account/register" class="nav-link">Register</a>
+      </li>
+      <% } %>
+    </ul>
+  </div>
+</nav>

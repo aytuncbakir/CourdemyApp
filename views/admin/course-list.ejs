@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head') %>
+  </head>
+  <body>
+    <!-- navigation -->
+    <%- include('../partials/nav') %>
+
+    <div class="container mt-3">
+      <div class="row">
+        <div class="col-md12 mt-3">
+          <% if (action != 'undefined' && action=='edit') { %>
+          <div class="alert alert-success">
+           Course with id <%= courseid %> has been updated.
+          </div>
+          <% } %> <% if (action != 'undefined' && action=='create') { %>
+          <div class="alert alert-success">Course added!</div>
+          <% } %> <% if (action != 'undefined' && action=='delete') { %>
+          <div class="alert alert-danger">Course deleted.</div>
+          <% } %>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width: 50px">id</th>
+                <th style="width: 130px">image</th>
+                <th>title</th>
+                <th>kategori</th>
+                <th style="width: 130px"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% courses.forEach(course => { %>
+              <tr>
+                <td><%= course.id %></td>
+                <td>
+                  <img
+                    src="/static/images/<%= course.image %>"
+                    class="img-fluid"
+                    alt=""
+                  />
+                </td>
+                <td><%= course.title %></td>
+                <td>
+                  <% course.categories.forEach(category => { %>
+                  <p style="margin: 0px"><%= category.name %></p>
+                  <% }) %>
+                </td>
+                <td>
+                  <a
+                    class="btn btn-sm btn-primary"
+                    href="/admin/courses/<%= course.id %>"
+                    >Edit</a
+                  >
+
+                  <a
+                    class="btn btn-sm btn-danger"
+                    href="/admin/course/delete/<%= course.url %>"
+                    >Delete</a
+                  >
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

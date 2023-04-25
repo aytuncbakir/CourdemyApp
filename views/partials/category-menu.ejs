@@ -1,0 +1,13 @@
+<div class="list-group ">
+  <a href="/courses" class="list-group-item list-group-item-action"
+    >All Categories</a
+  >
+  <% categories.forEach(category => { %>
+  <a
+    href="/courses/category/<%= category.url %>"
+    class="list-group-item  list-group-item-action <%= selectedCategory == category.url ? 'active bg-dark':'' %>"
+  >
+    <%= category.name %></a
+  >
+  <% }) %>
+</div>

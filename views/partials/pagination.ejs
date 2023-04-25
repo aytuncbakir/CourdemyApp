@@ -1,0 +1,27 @@
+<!-- pagination -->
+
+<% if (totalPages > 1) { %>
+
+<nav class="mt-3">
+  <ul class="pagination justify-content-center">
+    <li class="page-item">
+      <a href="?page=0" class="page-link text-dark">First</a>
+    </li>
+
+    <% for( let i = 0; i < totalPages; i++ ) { %>
+    <li class="page-item">
+      <a
+        href="?page=<%= i %>"
+        class="page-link <%= (i == currentPage) ? 'active bg-dark text-light' : 'text-dark' %>"
+        ><%= i+1%></a
+      >
+    </li>
+    <% } %>
+
+    <li class="page-item">
+      <a  href="?page=<%= totalPages-1 %>" class="page-link text-dark">Last</a>
+    </li>
+  </ul>
+</nav>
+
+<% } %>

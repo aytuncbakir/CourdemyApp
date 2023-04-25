@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head') %>
+  </head>
+  <body>
+    <!-- navigation -->
+    <%- include('../partials/nav') %>
+
+    <div class="container mt-3">
+      <div class="row">
+        <div class="col-md12 mt-3">
+          <% if (action != 'undefined' && action=='edit') { %>
+          <div class="alert alert-success">
+            Category <%= categoryid %> updated.
+          </div>
+          <% } %> <% if (action != 'undefined' && action=='create') { %>
+          <div class="alert alert-success">Category added.</div>
+          <% } %> <% if (action != 'undefined' && action=='delete') { %>
+          <div class="alert alert-danger">Category deleted.</div>
+          <% } %>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width: 50px">id</th>
+                <th style="width: 130px">name</th>
+                <th style="width: 130px"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% categories.forEach(category => { %>
+              <tr>
+                <td><%= category.id %></td>
+
+                <td><%= category.name %></td>
+                <td>
+                  <a
+                    class="btn btn-sm btn-primary"
+                    href="/admin/categories/<%= category.url %>"
+                    >Edit</a
+                  >
+                  <a
+                    class="btn btn-sm btn-danger"
+                    href="/admin/category/delete/<%= category.url %>"
+                    >Delete</a
+                  >
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
